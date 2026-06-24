@@ -3,7 +3,8 @@ import serial
 
 class PhotoTransferModule:
     """
-    This class controls the transfer of photos back to the computer. They will later be analyzed by the CV module
+    This class controls the transfer of photos back to the computer. It does so by connecting to a rasberrypi
+    They will later be analyzed by the CV module
     """
     def __init__(self):
         """
