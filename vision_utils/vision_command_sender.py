@@ -1,14 +1,12 @@
 import sys
 from pathlib import Path
 
-# Find the current folder (vision_utils) and the parent folder (vision_system)
+# Path building
 current_dir = Path(__file__).resolve().parent
 parent_dir = current_dir.parent
-
-# Add the parent folder to Python's searchable path
 sys.path.append(str(parent_dir))
 
-# Now we can safely import from the parent directory.
+
 from vision_system.photo_transfer_module import PhotoTransferModule
 
 # ==========================================
@@ -48,7 +46,7 @@ try:
             vision_system.turn_off()
 
         elif cmd in ("snap", "s", "take photo"):
-            # Construct the dynamic path (e.g., test_capture_01.jpg, test_capture_02.jpg)
+            # Construct the dynamic path
             filename = f"{FILE_PREFIX}{photo_counter:02d}.jpg"
             current_path = TEST_PHOTO_DIR / filename
 
@@ -59,7 +57,7 @@ try:
 
             if success:
                 print(f"SUCCESS: Go check {current_path} to verify the image.")
-                photo_counter += 1  # Increment the counter for the next photo
+                photo_counter += 1
             else:
                 print("FAILED: Photo capture returned False. Check the console for errors.")
 
@@ -70,7 +68,7 @@ try:
             print("Unknown command. Type 'snap' to test the camera or 'exit' to quit.")
 
 finally:
-    # Trigger the destructor manually to ensure the camera hardware is released properly
+    # Close camera module
     print("Cleaning up...")
     if hasattr(vision_system, '__del__'):
         vision_system.__del__()
