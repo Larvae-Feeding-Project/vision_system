@@ -14,7 +14,7 @@ from vision_system.photo_transfer_module import PhotoTransferModule
 # ==========================================
 # Point this to the folder where you want the images saved
 TEST_PHOTO_DIR = Path(r"C:\Users\nitai\PycharmProjects\Larvae Project\test_photos")
-FILE_PREFIX = "test_capture_"
+FILE_PREFIX = "new_test_capture_"
 
 print("Initializing Vision System Test Utility...")
 vision_system = PhotoTransferModule()
