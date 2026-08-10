@@ -40,7 +40,7 @@ class VisionDriver:
         self.camera_system = PhotoTransferModule()
 
         # Later add here CV module
-        
+
     def emergency_stop(self):
         # Need to implement
         return True
