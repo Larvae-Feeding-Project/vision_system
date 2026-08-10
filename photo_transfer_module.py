@@ -91,7 +91,7 @@ class PhotoTransferModule:
         """
         if not self.is_active:
             print(">> Vision System: Camera is already OFF. Ignoring command.")
-            return
+            return True
 
         print(">> Vision System: Releasing camera hardware...")
         if self.cap is not None and self.cap.isOpened():
@@ -100,12 +100,20 @@ class PhotoTransferModule:
         self.cap = None
         self.is_active = False
         print(">> Vision System: Camera is now OFF (Standby Mode).")
+        return True
+
+    def get_is_active(self):
+        """
+        Checks if the camera is active and returns it
+        :return: true if active otherwise false
+        """
+        return self.is_active
 
     def take_photo(self, path):
         """
         Takes a photo using the active USB camera and saves it directly to the path.
         :param path: The file path to save the image
-        :return: boolean true for success, false otherwise
+        :return: true for success, false otherwise
         """
         if not self.is_active or self.cap is None:
             print(">> ERROR: Cannot take photo. Camera is OFF. Call turn_on() first.")
