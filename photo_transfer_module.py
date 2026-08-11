@@ -43,7 +43,7 @@ class PhotoTransferModule:
         self.is_active = False
 
         # Default starting exposure (negative power of 2: -6 means ~1/64 sec)
-        self.current_exposure = -6
+        self.current_exposure = -14
 
         print(f"Vision System: Initialized in Standby Mode (Camera index {self.camera_index}).")
 
@@ -148,6 +148,9 @@ class PhotoTransferModule:
             return False
 
         print(f">> Snapping photo and saving to: {path}")
+
+        for _ in range(5):
+            self.cap.read()
 
         try:
             # Snap the actual photo

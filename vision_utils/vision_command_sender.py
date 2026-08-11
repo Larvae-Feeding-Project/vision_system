@@ -11,7 +11,7 @@ from vision_system.photo_transfer_module import PhotoTransferModule
 # ==========================================
 # EDIT THIS DIRECTORY TO TEST DIFFERENT LOCATIONS
 # ==========================================
-TEST_PHOTO_DIR = Path(r"C:\Users\nitai\PycharmProjects\Larvae Project\test_photos")
+TEST_PHOTO_DIR = Path(r"C:\Users\nitai\PycharmProjects\Larvae Project\real_larvae")
 FILE_PREFIX = "new_test_capture_"
 
 print("Initializing Vision System Test Utility...")
