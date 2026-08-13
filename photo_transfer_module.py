@@ -42,6 +42,9 @@ class PhotoTransferModule:
         self.cap = None
         self.is_active = False
 
+        # Default starting exposure (negative power of 2: -6 means ~1/64 sec)
+        self.current_exposure = -14
+
         print(f"Vision System: Initialized in Standby Mode (Camera index {self.camera_index}).")
 
     def __del__(self):
@@ -49,6 +52,18 @@ class PhotoTransferModule:
         PhotoTransferModule destructor. Ensures the camera hardware is released on shutdown.
         """
         self.turn_off()
+
+    def set_exposure(self, value):
+        """
+        Dynamically adjusts the camera exposure.
+        :param value: Integer value for exposure (usually negative, e.g., -4, -5, -6)
+        """
+        self.current_exposure = value
+        if self.is_active and self.cap is not None:
+            self.cap.set(cv2.CAP_PROP_EXPOSURE, self.current_exposure)
+            print(f">> Vision System: Exposure set to {self.current_exposure}")
+        else:
+            print(f">> Vision System: Exposure will be set to {self.current_exposure} on next turn_on().")
 
     def turn_on(self):
         """
@@ -62,7 +77,9 @@ class PhotoTransferModule:
             return True
 
         print(f">> Waking up camera {self.camera_index} for feeding cycle...")
-        self.cap = cv2.VideoCapture(self.camera_index)
+
+        # CAP_DSHOW is required on Windows to access manual UVC hardware controls reliably
+        self.cap = cv2.VideoCapture(self.camera_index, cv2.CAP_DSHOW)
 
         if not self.cap.isOpened():
             print(f">> ERROR: Could not open camera. Is it plugged in or used by another app?")
@@ -72,6 +89,11 @@ class PhotoTransferModule:
         # Set resolution
         self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
         self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
+
+        # Disable Auto-Exposure (0.25 is typically Manual Mode in OpenCV/DSHOW)
+        self.cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 0.25)
+        # Apply the absolute manual exposure value
+        self.cap.set(cv2.CAP_PROP_EXPOSURE, self.current_exposure)
 
         # Warm up the sensor and ISP (Auto-Exposure adjustment)
         print(">> Vision System: Warming up sensor...")
@@ -126,6 +148,9 @@ class PhotoTransferModule:
             return False
 
         print(f">> Snapping photo and saving to: {path}")
+
+        for _ in range(5):
+            self.cap.read()
 
         try:
             # Snap the actual photo

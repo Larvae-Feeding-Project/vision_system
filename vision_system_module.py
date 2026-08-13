@@ -41,6 +41,10 @@ class VisionDriver:
 
         # Later add here CV module
 
+    def emergency_stop(self):
+        # Need to implement
+        return True
+
     # ==========================================
     # photo transfer module related functions
     # ==========================================
