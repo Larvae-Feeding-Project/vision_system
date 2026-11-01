@@ -43,7 +43,7 @@ class PhotoTransferModule:
         self.is_active = False
 
         # Default starting exposure (negative power of 2: -6 means ~1/64 sec)
-        self.current_exposure = -14
+        self.current_exposure = -16
 
         print(f"Vision System: Initialized in Standby Mode (Camera index {self.camera_index}).")
 
