@@ -20,4 +20,5 @@ class ArisCvAc(object):
         - The first - tuple of x,y offset from the center of the well to the larva center
         - The second - Volume of the larvae (millimeters ^ 3?)
         - The third -  Larvae height (in millimeters)
+        - Debugged image
         """
