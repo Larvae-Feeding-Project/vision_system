@@ -19,7 +19,7 @@ class BumbleBeeCv(ArisCvAc):
         well_center_px: Optional[Tuple[int, int]] = (961, 538),
         glare_halo_pad_px: int = 10,
         croissant_smooth_px: int = 9,
-        mm_per_pixel: float = 1.0,
+        mm_per_pixel: float = 0.0531,
         min_larva_area_px: int = 1200,
         save_debug: bool = True,
     ):
@@ -30,7 +30,7 @@ class BumbleBeeCv(ArisCvAc):
         self.well_center_px = well_center_px
         self.glare_halo_pad_px = glare_halo_pad_px
         self.croissant_smooth_px = croissant_smooth_px
-        self.mm_per_pixel = mm_per_pixel
+        self.mm_per_pixel = 7.75 / 140 # Raidus in mm/pixel for radius
         self.min_larva_area_px = min_larva_area_px
         self.save_debug = save_debug
         self.last_debug_img: Optional[np.ndarray] = None
