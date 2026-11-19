@@ -91,4 +91,4 @@ def interactive_tuner(folder_path: str):
 
 
 if __name__ == "__main__":
-    interactive_tuner("C:\\Users\\nitai\\Desktop\\ARIS_DATA\\clay_dark_underblack_24_exp16\\feed_1")
+    interactive_tuner("C:\\Users\\nitai\\Desktop\\ARIS_DATA\\real_larvae_dark_black_24_exp16\\feed_2")
