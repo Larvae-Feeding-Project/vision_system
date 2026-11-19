@@ -1,8 +1,10 @@
+from abc import ABC, abstractmethod
+from typing import Tuple
 
 
-class ArisCvAc(object):
+class ArisCvAc(ABC):
     """
-        ArisCvAc class defines the interface any CV model needs to implement to properly work with the ARIS system
+    ArisCvAc defines the interface any CV model needs to implement to properly work with the ARIS system.
     """
 
     def __init__(self):
@@ -11,14 +13,14 @@ class ArisCvAc(object):
     def __del__(self):
         pass
 
-    def analyze_photo(self, image):
+    @abstractmethod
+    def analyze_photo(self, image_path: str) -> Tuple[Tuple[float, float], float, float]:
         """
-        This method analyzes the image of a larvae and return the relevant parameters for the system
-        :param self:
-        :param image: Image of the larvae to be analyzed (may change to path instead)
+        Analyzes the image of a larva from a file path and returns the relevant parameters for the system.
+        :param image_path: Path string to the larva image to be analyzed.
         :return: Returns a tuple with 3 parameters:
-        - The first - tuple of x,y offset from the center of the well to the larva center
-        - The second - Volume of the larvae (millimeters ^ 3?)
-        - The third -  Larvae height (in millimeters)
-        - Debugged image
+            - The first - tuple of x, y offset from the center of the well to the larva center
+            - The second - Volume/area of the larva
+            - The third - Larva height (in millimeters)
         """
+        pass

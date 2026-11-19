@@ -5,6 +5,7 @@ import serial
 import json
 
 from vision_system.photo_transfer_module import PhotoTransferModule
+from vision_system.vision_modules.bumblebee_cv import BumbleBeeCv
 
 
 def load_json(file_path):
@@ -38,8 +39,7 @@ class VisionDriver:
         self.vision_data = load_json(data_path)
 
         self.camera_system = PhotoTransferModule()
-
-        # Later add here CV module
+        self.cv_module = BumbleBeeCv()
 
     def emergency_stop(self):
         # Need to implement
@@ -73,3 +73,20 @@ class VisionDriver:
     # ==========================================
     # CV related functions
     # ==========================================
+
+    def analyze_photo(self, photo_path):
+        """
+        Receives a path to the photo and returns the analyzed parameters
+        :param photo_path: path of the photo to analyze
+        :return: ((x,y offsets), larvae area mm^2, larvae height mm)
+        """
+        path = Path(photo_path)
+        if not path.is_file():
+            print(f"Error: Photo not found at {path}")
+            return None
+
+        try:
+            return self.cv_module.analyze_photo(str(path))
+        except (ValueError, TypeError, OSError) as e:
+            print(f"Error analyzing photo at {path}: {e}")
+            return None
