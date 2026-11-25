@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from pathlib import Path
 from typing import Tuple, Optional
-from aris_cv_ac import ArisCvAc
+from vision_system.vision_modules.aris_cv_ac import ArisCvAc
 
 
 class BumbleBeeCv(ArisCvAc):
@@ -13,10 +13,10 @@ class BumbleBeeCv(ArisCvAc):
 
     def __init__(
         self,
-        lower_ir_thresh: int = 105,
+        lower_ir_thresh: int = 56,
         upper_ir_thresh: int = 248,
         roi_radius_px: int = 150,
-        well_center_px: Optional[Tuple[int, int]] = (961, 538),
+        well_center_px: Optional[Tuple[int, int]] = (925, 538),
         glare_halo_pad_px: int = 10,
         croissant_smooth_px: int = 9,
         mm_per_pixel: float = 0.0531,
